@@ -32,7 +32,8 @@ services:
       ENABLE_CELERY_LONG: 'no'
       ENABLE_MIGRATIONS: 'no'
     depends_on:
-      - migrations
+      migrations:
+        condition: service_completed_successfully
 
   celery_worker:
     build: .
@@ -46,7 +47,8 @@ services:
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_MIGRATIONS: 'no'
     depends_on:
-      - migrations
+      migrations:
+        condition: service_completed_successfully
 
   celery_beat:
     build: .
