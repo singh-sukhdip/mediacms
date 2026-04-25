@@ -49,10 +49,9 @@ services:
       ENABLE_NGINX: 'no'
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_MIGRATIONS: 'no'
-      # Force celery to run in the foreground
-      C_FORCE_ROOT: 'true' 
-    # Override the command to keep the process alive in the foreground
-    command: "python3 manage.py celery_worker" 
+      C_FORCE_ROOT: 'true'
+    # Direct celery call instead of manage.py
+    command: "celery -A cms worker -l info --concurrency=2"
     depends_on:
       migrations:
         condition: service_completed_successfully
